@@ -1,0 +1,69 @@
+/* 
+    accesibility framework
+    Author:Vladimir Torres
+    Version:1.0.0
+   License: none (public domain)
+*/
+
+
+/*Header*/
+
+.acces__header {}
+
+
+/*Nav*/
+
+.acces__nav {}
+
+
+/*Main*/
+
+
+/*section*/
+
+
+/*article*/
+
+
+/*aside*/
+
+
+/*complementos*/
+
+.access__check {
+    border: 2px solid greenyellow;
+    position: relative;
+}
+
+.access__check.bad {
+    border: 3px solid red;
+    color: red;
+}
+
+.info__access {
+    background-color: #000;
+    color: #fff !important;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .5rem .75rem;
+    position: relative;
+    border-radius: 5px;
+    top: 0px;
+    font-size: 16px;
+    opacity: 0.8;
+    right: 0px;
+}
+
+.info__access::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-right: 4px solid #000;
+    border-bottom: 4px solid #000;
+    position: absolute;
+    background-color: #000;
+    bottom: -5px;
+    transform: rotate(45deg);
+}
