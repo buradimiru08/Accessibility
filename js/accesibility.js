@@ -1,17 +1,17 @@
+var script = document.createElement('script');
+script.src = 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js';
+script.type = 'text/javascript';
+document.getElementsByTagName('head')[0].appendChild(script);
+
 jQuery(function($) {
 
 
-    var cssId = 'myCss'; // you could encode the css path itself to generate id..
-    if (!document.getElementById(cssId)) {
-        var head = document.getElementsByTagName('head')[0];
-        var link = document.createElement('link');
-        link.id = cssId;
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        link.href = 'https://github.com/buradimiru08/Accessibility/blob/a77370bd2359904dfd1c3f876a311fb8f8cb932c/css/accesibilidad.css';
-        link.media = 'all';
-        head.appendChild(link);
-    }
+    $('head').append('<meta http-equiv="Content-Type" content="text/html"></meta>');
+
+    $('head').append('<style>.access__check{border:2px solid #adff2f;position:relative}.access__check.bad{border:3px solid red;color:red}.info__access{background-color:#000;color:#fff!important;width:auto;display:flex;justify-content:center;align-items:center;padding:.5rem .75rem;position:relative;border-radius:5px;top:0;font-size:16px;opacity:.8;right:0}.info__access::after{content:"";width:10px;height:10px;border-right:4px solid #000;border-bottom:4px solid #000;position:absolute;background-color:#000;bottom:-5px;transform:rotate(45deg)}</style>');
+
+
+
 
     if ($("body").hasClass("access-widget")) {
 
@@ -140,10 +140,6 @@ jQuery(function($) {
 
                 console.table(imgtable);
                 console.log(myAlt);
-
-
-
-
 
                 $(this).css("border", "5px solid green");
                 $(this).before("<p class='access-text_img'>");
