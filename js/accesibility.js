@@ -8,9 +8,7 @@ jQuery(function($) {
 
     $('head').append('<meta http-equiv="Content-Type" content="text/html"></meta>');
 
-    $('head').append('<style>.access__check{border:2px solid #adff2f;position:relative}.access__check.bad{border:3px solid red;color:red}.info__access{background-color:#000;color:#fff!important;width:auto;display:flex;justify-content:center;align-items:center;padding:.5rem .75rem;position:relative;border-radius:5px;top:0;font-size:16px;opacity:.8;right:0}.info__access::after{content:"";width:10px;height:10px;border-right:4px solid #000;border-bottom:4px solid #000;position:absolute;background-color:#000;bottom:-5px;transform:rotate(45deg)}</style>');
-
-
+    $('head').append('<style>.access_relative{position:relative;}.access__absolute_bad{position: relative;}.access__absolute{position:relative;width:auto;display:flex;justify-content:center;align-items:center;flex-direction:column}.access__check{border:2px solid #adff2f;position:relative}.access__check.bad{border:3px solid red;color:red}.info__access{background-color:#000;color:#fff!important;width:auto;display:flex;justify-content:center;align-items:center;padding:.5rem .75rem;position:relative;border-radius:5px;top:0;font-size:16px;opacity:.8;right:0}.info__access::after{content:"";width:10px;height:10px;border-right:4px solid #000;border-bottom:4px solid #000;position:absolute;background-color:#000;bottom:-5px;transform:rotate(45deg)}.access__absolute .info__access{background-color:#000;color:#fff!important;max-width:90%;display:flex;justify-content:center;align-items:center;padding:.5rem .75rem;position:relative;border-radius:5px;font-size:16px;opacity:.8;right:0;top:0;height:80px;text-align:center;z-index:99}.access__absolute_bad .info__access{background-color:#000;color:#fff!important;width:125px;display:flex;justify-content:center;align-items:center;padding:.5rem .75rem;position:relative;border-radius:5px;font-size:16px;opacity:.8;right:0;top:0;height:80px;text-align:center;z-index:99}</style>');
 
 
     if ($("body").hasClass("access-widget")) {
@@ -96,15 +94,6 @@ jQuery(function($) {
     }
 
 
-
-
-
-
-
-
-
-
-
     if (document.querySelector("img")) {
         var imagenes = $("body img");
 
@@ -125,48 +114,79 @@ jQuery(function($) {
         console.log("El footer  no existe");
     }
 
-    $("body")
-        .find("img")
-        .each(function() {
-            if (this.alt.trim() != "") {
-                var myAlt = this.alt;
-                var check = $("<div class='info__access'><span>✅Existe alt Text</span></div>");
-                var nombre_archivo = (this.src);
-                var imgtable = [
-                    ["largo de texto:", myAlt.length],
-                    ["ALT text:", myAlt],
-                    ["Nombre del archivo y URL:", nombre_archivo]
-                ]
 
-                console.table(imgtable);
-                console.log(myAlt);
 
-                $(this).css("border", "5px solid green");
-                $(this).before("<p class='access-text_img'>");
-                $(".access-text_img").html(myAlt);
-                $(".access-text_img").css("border", "5px solid green");
-                $(".access-text_img").prepend(check);
 
-            } else {
 
-                var check_bad = $("<div class='info__access'><span>❌ No existe  atributo Alt text</span></div>");
-                $(this).before("<p class='access-text_img_bad'>");
-                $(".access-text_img_bad").prepend(check_bad);
-                $(".access-text_img_bad img").css("border", "5px solid red");
-                //this.alt = 'IMAGEN SIN ALT TEXT';
-                var myAlt = this.alt;
-                //console.log(myAlt);
+    $("body").find("img").each(function() {
+        if (this.alt.trim() != "") {
 
-                var nombre_archivo = (this.src);
-                var imgtable = [
-                    ["largo de texto:", myAlt.length],
-                    ["ALT text:", myAlt],
-                    ["Nombre del archivo y URL:", nombre_archivo]
-                ]
 
-                console.table(imgtable);
-            }
-        });
+            var myAlt = this.alt;
+            var check = $("<div class='info__access'><span>✅Existe alt Text</span></div>");
+            var nombre_archivo = (this.src);
+            var dimensiones = this.width + 'x' + this.height;
+            var peso = fetch($('img').prop('src')).then(function(response) {});
+            var newDiv = document.createElement("div");
+            var altText = $(this).attr('alt');
+            $(newDiv).html(altText);
+            $(newDiv).attr('class', 'divAltText');
+
+
+            let imgtable = [
+                ["largo de texto:", myAlt.length],
+                ["ALT text:", myAlt],
+                ["Nombre del archivo y URL:", nombre_archivo],
+                ["Dimensiones:", dimensiones],
+                ["peso:", dimensiones],
+
+
+            ]
+
+            console.table(imgtable);
+            $(this).parent().addClass('access_relative');
+            $(this).wrap("<div class='access__absolute'>");
+            $(check).insertBefore(this);
+            $(newDiv).css("border", "5px solid green");
+            $(newDiv).wrap(check);
+            $(check).insertBefore(this);
+            $(this).css("border", "5px solid green");
+
+
+            console.log(myAlt);
+
+
+
+        } else {
+            var newDiv = document.createElement("div");
+            var check_bad = $("<div class='info__access'><span>❌ No existe  atributo Alt text</span></div>");
+            $(this).after(newDiv);
+            $(this).parent().addClass('access_relative');
+            $(this).wrap("<div class='access__absolute_bad'>");
+            //$(newDiv).css("border", "5px solid red");
+            //$(newDiv).wrap("<p class='access-text_img_bad'>");
+            $(this).css("border", "5px solid red");
+            $(check_bad).insertBefore(this);
+
+
+            //this.alt = 'IMAGEN SIN ALT TEXT';
+            var myAlt = this.alt;
+            //console.log(myAlt);
+
+            var nombre_archivo = (this.src);
+            var imgtable = [
+                ["largo de texto:", myAlt.length],
+                ["ALT text:", myAlt],
+                ["Nombre del archivo y URL:", nombre_archivo]
+            ]
+
+            //console.table(imgtable);
+        }
+    });
+
+
+
+
 
 
 
